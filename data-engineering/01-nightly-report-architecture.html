@@ -1,0 +1,893 @@
+<title>The Seven-Hour Report</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap">
+<style>
+:root{
+  --bg:#f2f5f7; --surface:#ffffff; --surface-2:#e8eef2; --surface-3:#dde6ec;
+  --ink:#14202a; --ink-2:#4c5f6f; --ink-3:#76899a;
+  --line:#cfdae1; --line-strong:#a4b7c4;
+  --accent:#9c5405; --accent-soft:#f6e6d1;
+  --ok:#1a6a4e; --ok-soft:#dcefe7;
+  --crit:#93302f; --crit-soft:#f5dedd;
+  --mono:'IBM Plex Mono', ui-monospace, monospace;
+  --sans:'IBM Plex Sans', system-ui, sans-serif;
+  --serif:'IBM Plex Serif', Georgia, serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d141a; --surface:#151e26; --surface-2:#1c2832; --surface-3:#24323d;
+    --ink:#e1e8ee; --ink-2:#94a6b4; --ink-3:#6f8395;
+    --line:#25323d; --line-strong:#3e5060;
+    --accent:#e0a04a; --accent-soft:#2e2413;
+    --ok:#57b895; --ok-soft:#142a23;
+    --crit:#d97b76; --crit-soft:#2e1818;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d141a; --surface:#151e26; --surface-2:#1c2832; --surface-3:#24323d;
+  --ink:#e1e8ee; --ink-2:#94a6b4; --ink-3:#6f8395;
+  --line:#25323d; --line-strong:#3e5060;
+  --accent:#e0a04a; --accent-soft:#2e2413;
+  --ok:#57b895; --ok-soft:#142a23;
+  --crit:#d97b76; --crit-soft:#2e1818;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1150px;margin:0 auto;padding:0 30px 90px}
+.prose{max-width:69ch}
+p{margin:0 0 1em}
+a{color:var(--accent)}
+strong{font-weight:600}
+code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);padding:.12em .38em;border:1px solid var(--line)}
+
+/* ---------- masthead ---------- */
+header.mast{border-bottom:1px solid var(--line-strong);padding:64px 0 30px;margin-bottom:52px}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 18px}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,5.2vw,56px);line-height:1.06;letter-spacing:-.018em;margin:0 0 18px;text-wrap:balance}
+.standfirst{font-size:19px;line-height:1.55;color:var(--ink-2);max-width:60ch;margin:0}
+
+.facts{display:flex;flex-wrap:wrap;gap:0;margin-top:38px;border-top:1px solid var(--line)}
+.fact{padding:16px 26px 14px 0;margin-right:26px;border-right:1px solid var(--line)}
+.fact:last-child{border-right:0}
+.fact .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:4px}
+.fact .v{font-family:var(--mono);font-size:22px;font-weight:500;font-variant-numeric:tabular-nums;display:block;line-height:1.15}
+.fact .v.bad{color:var(--crit)}
+
+/* ---------- steps ---------- */
+section.step{margin:0 0 68px;scroll-margin-top:20px}
+.stephead{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:26px}
+.stepnum{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);white-space:nowrap;padding-top:4px}
+h2{font-family:var(--serif);font-weight:600;font-size:clamp(23px,2.7vw,30px);line-height:1.2;letter-spacing:-.012em;margin:0;text-wrap:balance}
+h3{font-family:var(--sans);font-weight:600;font-size:15px;letter-spacing:.005em;margin:34px 0 10px}
+
+/* ---------- decision ---------- */
+.dec{border:1px solid var(--line-strong);background:var(--surface);padding:15px 18px 16px;margin:20px 0;max-width:72ch}
+.dec .tag{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
+.dec p{margin:0;font-size:15.5px;line-height:1.55}
+.dec p + p{margin-top:.7em}
+
+.flag{border:1px dashed var(--accent);background:var(--accent-soft);padding:16px 19px;margin:24px 0;max-width:72ch}
+.flag .tag{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.flag p{margin:0;font-size:15.5px}
+.flag p + p{margin-top:.7em}
+
+/* ---------- figures ---------- */
+figure{margin:30px 0 34px;padding:0}
+.figbox{border:1px solid var(--line);background:var(--surface);padding:22px 20px 14px;overflow-x:auto}
+figure svg{display:block;width:100%;min-width:600px;max-width:100%;height:auto;color:var(--ink-2)}
+figcaption{font-size:13.5px;line-height:1.5;color:var(--ink-2);margin-top:11px;max-width:76ch}
+figcaption b{color:var(--ink);font-weight:600}
+svg text{font-family:var(--mono);font-size:11px;fill:currentColor}
+svg .t-ink{fill:var(--ink)}
+svg .t-acc{fill:var(--accent)}
+svg .t-ok{fill:var(--ok)}
+svg .t-crit{fill:var(--crit)}
+svg .t-sm{font-size:9.5px}
+svg .t-lg{font-size:13px;font-family:var(--sans);font-weight:600}
+svg .bx{fill:var(--surface);stroke:var(--line-strong);stroke-width:1}
+svg .bx2{fill:var(--surface-2);stroke:var(--line-strong);stroke-width:1}
+svg .bx-acc{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.4}
+svg .bx-ok{fill:var(--ok-soft);stroke:var(--ok);stroke-width:1}
+svg .bx-crit{fill:var(--crit-soft);stroke:var(--crit);stroke-width:1}
+svg .ln{stroke:currentColor;stroke-width:1.2;fill:none}
+svg .ln-acc{stroke:var(--accent);stroke-width:1.6;fill:none}
+svg .ln-dash{stroke:currentColor;stroke-width:1.1;fill:none;stroke-dasharray:4 4}
+svg .fl-acc{fill:var(--accent)}
+svg .fl-ink3{fill:var(--ink-3)}
+
+/* ---------- tables ---------- */
+.tablewrap{overflow-x:auto;margin:24px 0 28px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:620px;background:var(--surface);font-size:14.5px}
+th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:500;padding:11px 14px;border-bottom:1px solid var(--line-strong);vertical-align:bottom;background:var(--surface-2)}
+td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}
+tr:last-child td{border-bottom:0}
+td.mono,th.mono{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums}
+tr.pick td{background:var(--accent-soft)}
+tr.pick td:first-child{font-weight:600}
+.yes{color:var(--ok);font-weight:600}
+.no{color:var(--crit);font-weight:600}
+
+pre{font-family:var(--mono);font-size:12.5px;line-height:1.55;background:var(--surface-2);border:1px solid var(--line);padding:14px 16px;overflow-x:auto;margin:14px 0 18px;color:var(--ink)}
+pre .c{color:var(--ink-3)}
+pre .hi{color:var(--accent);font-weight:500}
+.tstep{display:flex;align-items:baseline;gap:12px;margin:36px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.tstep .n{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--accent);white-space:nowrap}
+.tstep h3{margin:0;font-size:16px}
+.tstep .chip{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line-strong);padding:3px 9px;white-space:nowrap}
+.note{font-size:14px;color:var(--ink-2);max-width:72ch;margin:0 0 1em}
+.note b{color:var(--ink)}
+td.del{color:var(--crit);text-decoration:line-through}
+td.new{color:var(--ok);font-weight:600}
+ul.tight{margin:0 0 1em;padding-left:1.15em}
+ul.tight li{margin-bottom:.42em;max-width:69ch}
+
+.closer{border-top:1px solid var(--line-strong);margin-top:56px;padding-top:30px}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">Data engineering · Scenario 01 · Reference architecture</p>
+  <h1>The Seven-Hour Report</h1>
+  <p class="standfirst">A nightly per-city report drifted from 20 minutes to seven hours without anyone touching the query. Here is what actually broke, and the architecture that fixes it — roles first, products second.</p>
+  <div class="facts">
+    <div class="fact"><span class="k">Trips / day</span><span class="v">40M</span></div>
+    <div class="fact"><span class="k">New data / day</span><span class="v">16 GB</span></div>
+    <div class="fact"><span class="k">Scanned / run</span><span class="v bad">17.5 TB</span></div>
+    <div class="fact"><span class="k">Runtime</span><span class="v bad">~7 h</span></div>
+    <div class="fact"><span class="k">Window</span><span class="v">00:30 → 08:00</span></div>
+    <div class="fact"><span class="k">Corrections land</span><span class="v">14 days</span></div>
+  </div>
+</header>
+
+<!-- ============ STEP 0 ============ -->
+<section class="step">
+  <div class="stephead"><span class="stepnum">Step 0</span><h2>Diagnose before designing</h2></div>
+  <div class="prose">
+    <p>“Nobody changed the query” is the clue. What changed is the <strong>history</strong>, not the workload. The <code>trips</code> table has no partitioning, so a query about yesterday reads three years to find it.</p>
+  </div>
+
+  <figure>
+    <div class="figbox">
+      <svg viewBox="0 0 900 190" role="img" aria-label="A bar representing 17,520 gigabytes scanned per run, with a 2-pixel sliver at its left end representing the 16 gigabytes the report is actually about.">
+        <text class="t-ink t-lg" x="40" y="26">Every run reads three years to report on one day</text>
+        <rect class="bx2" x="40" y="52" width="820" height="46"></rect>
+        <rect class="fl-acc" x="40" y="52" width="3" height="46"></rect>
+        <text class="t-ink" x="430" y="80" text-anchor="middle">17,520 GB scanned — full table, no partition pruning</text>
+        <path class="ln-acc" d="M 41 52 L 41 34 L 120 34"></path>
+        <text class="t-acc t-sm" x="126" y="37">16 GB — the day the report is about (0.09%)</text>
+        <line class="ln" x1="40" y1="112" x2="860" y2="112"></line>
+        <text class="t-sm fl-ink3" x="40" y="130">3 y × 365 d × 16 GB/day</text>
+        <text class="t-sm fl-ink3" x="860" y="130" text-anchor="end">≈ 5 h of pure IO at 1 GB/s on one SSD</text>
+        <text class="t-sm fl-ink3" x="40" y="152">40M rider IDs = 640 MB · 40M wait times = 320 MB — both fit in 256 GB RAM</text>
+        <text class="t-ink t-sm" x="40" y="172">The aggregation was never the bottleneck. The scan was.</text>
+      </svg>
+    </div>
+    <figcaption><b>Figure 1.</b> Cost tracks history retained, not the day reported. Two years ago the same query scanned a fraction of the same table — which is why nothing “changed” and everything got slower.</figcaption>
+  </figure>
+
+  <div class="dec">
+    <span class="tag">Decision 0 — the shape of the work</span>
+    <p>A bigger machine buys roughly 2× against 40%-a-year growth. The fix is structural: read only the day in question, and stop re-reading history. Everything below is consequence.</p>
+  </div>
+</section>
+
+<!-- ============ THE WHOLE THING ============ -->
+<section class="step">
+  <div class="stephead"><span class="stepnum">The shape</span><h2>Five boxes, and what fills them</h2></div>
+  <div class="prose">
+    <p>Each box is named by <strong>role</strong> first. The product underneath it is a second, separable decision — swap any one of them without moving the boxes.</p>
+  </div>
+
+  <figure>
+    <div class="figbox">
+      <svg viewBox="0 0 1100 330" role="img" aria-label="Pipeline diagram: OLTP trips table, CDC stream into an append-only landing zone on S3, collapsed into a modeled trips table partitioned by trip date, aggregated into a serving table of 300 rows a day, queried by consumers. An orchestration band spans all five.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+          </marker>
+          <marker id="ar-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"></path>
+          </marker>
+        </defs>
+
+        <text class="t-sm fl-ink3" x="35" y="22">OPERATIONAL — out of scope to change</text>
+        <line class="ln-dash" x1="214" y1="30" x2="214" y2="300"></line>
+        <text class="t-sm fl-ink3" x="253" y="22">ANALYTICS</text>
+
+        <!-- box 1 -->
+        <rect class="bx2" x="35" y="62" width="158" height="140"></rect>
+        <text class="t-ink t-lg" x="114" y="86" text-anchor="middle">trips</text>
+        <text class="t-sm" x="114" y="108" text-anchor="middle">OLTP source</text>
+        <text class="t-sm" x="114" y="124" text-anchor="middle">mutable 14 days</text>
+        <text class="t-sm" x="114" y="140" text-anchor="middle">3 y, one table</text>
+        <line class="ln" x1="55" y1="156" x2="173" y2="156"></line>
+        <text class="t-acc t-sm" x="114" y="174" text-anchor="middle">PostgreSQL</text>
+        <text class="t-sm fl-ink3" x="114" y="190" text-anchor="middle">untouched</text>
+
+        <!-- box 2 -->
+        <rect class="bx" x="253" y="62" width="158" height="140"></rect>
+        <text class="t-ink t-lg" x="332" y="86" text-anchor="middle">LANDING</text>
+        <text class="t-sm" x="332" y="108" text-anchor="middle">append-only</text>
+        <text class="t-sm" x="332" y="124" text-anchor="middle">change log</text>
+        <text class="t-sm" x="332" y="140" text-anchor="middle">by ingest date</text>
+        <line class="ln" x1="273" y1="156" x2="391" y2="156"></line>
+        <text class="t-acc t-sm" x="332" y="174" text-anchor="middle">S3 + Kafka Connect</text>
+        <text class="t-sm fl-ink3" x="332" y="190" text-anchor="middle">~17 TB / 3 y</text>
+
+        <!-- box 3 -->
+        <rect class="bx-acc" x="471" y="62" width="158" height="140"></rect>
+        <text class="t-ink t-lg" x="550" y="86" text-anchor="middle">MODELED</text>
+        <text class="t-sm" x="550" y="108" text-anchor="middle">one row per trip</text>
+        <text class="t-sm" x="550" y="124" text-anchor="middle">by trip_date</text>
+        <text class="t-sm" x="550" y="140" text-anchor="middle">sorted by city</text>
+        <line class="ln-acc" x1="491" y1="156" x2="609" y2="156"></line>
+        <text class="t-acc t-sm" x="550" y="174" text-anchor="middle">Spark + Iceberg</text>
+        <text class="t-sm fl-ink3" x="550" y="190" text-anchor="middle">~3–4 GB/day</text>
+
+        <!-- box 4 -->
+        <rect class="bx" x="689" y="62" width="158" height="140"></rect>
+        <text class="t-ink t-lg" x="768" y="86" text-anchor="middle">SERVING</text>
+        <text class="t-sm" x="768" y="108" text-anchor="middle">(date, city)</text>
+        <text class="t-sm" x="768" y="124" text-anchor="middle">numbers +</text>
+        <text class="t-sm" x="768" y="140" text-anchor="middle">two sketches</text>
+        <line class="ln" x1="709" y1="156" x2="827" y2="156"></line>
+        <text class="t-acc t-sm" x="768" y="174" text-anchor="middle">Iceberg table</text>
+        <text class="t-sm fl-ink3" x="768" y="190" text-anchor="middle">~5 MB/day</text>
+
+        <!-- box 5 -->
+        <rect class="bx" x="907" y="62" width="158" height="140"></rect>
+        <text class="t-ink t-lg" x="986" y="86" text-anchor="middle">CONSUMERS</text>
+        <text class="t-sm" x="986" y="108" text-anchor="middle">dashboard</text>
+        <text class="t-sm" x="986" y="124" text-anchor="middle">ad-hoc analysis</text>
+        <text class="t-sm" x="986" y="140" text-anchor="middle">MTD / YTD</text>
+        <line class="ln" x1="927" y1="156" x2="1045" y2="156"></line>
+        <text class="t-acc t-sm" x="986" y="174" text-anchor="middle">Trino</text>
+        <text class="t-sm fl-ink3" x="986" y="190" text-anchor="middle">seconds</text>
+
+        <!-- arrows -->
+        <line class="ln" x1="193" y1="140" x2="247" y2="140" marker-end="url(#ar)"></line>
+        <text class="t-sm" x="220" y="124" text-anchor="middle">CDC</text>
+        <text class="t-sm fl-ink3" x="220" y="112" text-anchor="middle">log tail</text>
+
+        <line class="ln" x1="411" y1="140" x2="465" y2="140" marker-end="url(#ar)"></line>
+        <text class="t-sm" x="438" y="124" text-anchor="middle">collapse</text>
+        <text class="t-sm fl-ink3" x="438" y="112" text-anchor="middle">MERGE</text>
+
+        <line class="ln" x1="629" y1="140" x2="683" y2="140" marker-end="url(#ar)"></line>
+        <text class="t-sm" x="656" y="124" text-anchor="middle">aggregate</text>
+
+        <line class="ln" x1="847" y1="140" x2="901" y2="140" marker-end="url(#ar)"></line>
+        <text class="t-sm" x="874" y="124" text-anchor="middle">query</text>
+
+        <!-- orchestration band -->
+        <rect class="bx2" x="253" y="238" width="812" height="52" stroke-dasharray="5 4"></rect>
+        <text class="t-acc t-sm" x="273" y="262">ORCHESTRATION · Airflow</text>
+        <text class="t-sm" x="273" y="280">watermark trigger · idempotent per logical date · atomic publish · same DAG for backfill</text>
+        <line class="ln-dash" x1="332" y1="202" x2="332" y2="238"></line>
+        <line class="ln-dash" x1="550" y1="202" x2="550" y2="238"></line>
+        <line class="ln-dash" x1="768" y1="202" x2="768" y2="238"></line>
+      </svg>
+    </div>
+    <figcaption><b>Figure 2.</b> The reference architecture with its tech mapping in the same frame — role above the rule, product below it. The highlighted box is where the seven hours actually die.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ STEP 1 ============ -->
+<section class="step">
+  <div class="stephead"><span class="stepnum">Step 1</span><h2>The boundary: what leaves the operational store</h2></div>
+  <div class="prose">
+    <p>Why a seven-hour analytical query against a live replica is dangerous — four separate mechanisms, not one:</p>
+    <ul class="tight">
+      <li><strong>It pins a read snapshot for seven hours.</strong> The engine must retain every row version created in that window — bloat on the primary, growing replica lag.</li>
+      <li><strong>Rows mutate under the scan.</strong> Either the snapshot holds and you pay the point above, or the scan sees a smear of states and two runs disagree with no explanation.</li>
+      <li><strong>Schema coupling.</strong> An app-team column rename silently breaks the nightly report.</li>
+      <li><strong>Contention.</strong> It competes with the application's own reads on the same machine.</li>
+    </ul>
+    <p>Ranked against a stated test: can it reconstruct all four metrics, does it capture the 14-day corrections, and what does it cost the application team?</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Option</th><th>Catches corrections</th><th>Catches deletes</th><th>Load on OLTP</th><th>Needs app work</th></tr></thead>
+      <tbody>
+        <tr><td>Nightly full snapshot</td><td>only by re-reading everything</td><td class="yes">yes</td><td class="no">catastrophic</td><td>no</td></tr>
+        <tr><td>Incremental on <code>updated_at</code></td><td class="yes">yes</td><td class="no">no</td><td>one indexed range scan</td><td>index on source</td></tr>
+        <tr class="pick"><td>CDC from the transaction log</td><td class="yes">yes</td><td class="yes">yes</td><td class="yes">≈ none</td><td class="yes">none</td></tr>
+        <tr><td>Application domain events</td><td>only if the app emits them</td><td>n/a</td><td class="yes">none</td><td class="no">large</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="dec">
+    <span class="tag">Decision 1 — Change Data Capture</span>
+    <p>Read the database's own transaction log rather than its tables. Near-zero query load, captures every insert, update and delete — including back-office fare corrections — and asks nothing of application developers.</p>
+    <p><strong>On event sourcing:</strong> it is the better <em>model</em> — immutable, with <code>requested_at</code> and <code>arrived_at</code> as first-class facts rather than mutable columns. But it has a hole for exactly this problem: <strong>a refund issued by a back-office tool never passes through the application</strong>, so an event stream misses the correction case that makes this scenario hard. Strategic target, not the thing that ships.</p>
+  </div>
+
+  <div class="prose">
+    <p><strong>Tech:</strong> Debezium as a Kafka Connect source connector, Kafka as transport, the Confluent S3 sink connector writing to the landing zone. Debezium emits a <code>before</code>/<code>after</code> envelope per change with the source commit timestamp — which is what makes the restatement logic in Step 5 possible at all.</p>
+  </div>
+</section>
+
+<!-- ============ STEP 2 ============ -->
+<section class="step">
+  <div class="stephead"><span class="stepnum">Step 2</span><h2>Landing: a log of changes, not a picture of state</h2></div>
+
+  <div class="dec">
+    <span class="tag">Decision 2a — store changes, not state</span>
+    <p>A state snapshot overwrites history; a change log keeps it. This is the only layer that can answer “what did the report say last Tuesday, and why”, and the only one that can rebuild every layer below it after a transform bug.</p>
+  </div>
+  <div class="dec">
+    <span class="tag">Decision 2b — partition by ingest date, not trip date</span>
+    <p>Ingest date is the only thing known at write time. Writes stay sequential, and a failed load becomes trivially idempotent: drop the ingest partition, re-land it.</p>
+  </div>
+  <div class="dec">
+    <span class="tag">Decision 2c — no business logic here</span>
+    <p>Land it as received. Every transformation applied at this layer is one you can never undo.</p>
+  </div>
+
+  <div class="prose">
+    <p><strong>Tech:</strong> S3, raw Debezium envelopes in Avro. One operational catch your Kafka Connect answer creates: a sink flushing every few minutes produces <strong>thousands of small objects per day</strong>, and a year of them makes listing and reading expensive. Set the sink's flush size and rotation interval deliberately, and run a compaction job that rewrites each closed ingest partition into a few large objects.</p>
+  </div>
+</section>
+
+<!-- ============ STEP 3 ============ -->
+<section class="step">
+  <div class="stephead"><span class="stepnum">Step 3</span><h2>Modeled: collapse changes into queryable trips</h2></div>
+
+  <div class="dec">
+    <span class="tag">Decision 3a — partition by trip_date</span>
+    <p>Every access pattern filters on date: nightly is one partition, an arbitrary past day is one, month-to-date is ~30, year-to-date is 365. This is the decision that kills the 17.5 TB scan.</p>
+  </div>
+  <div class="dec">
+    <span class="tag">Decision 3b — do <em>not</em> also partition by city; sort by it</span>
+    <p>City partitioning gives 300 × 365 = 109,500 partitions a year, and the skew makes it worse — the top city's file is roughly 6× the median while a hundred cities produce near-empty ones. Sorting by city <em>inside</em> the date partition gets contiguous per-city reads with none of the small-file or skewed-task cost.</p>
+  </div>
+
+  <figure>
+    <div class="figbox">
+      <svg viewBox="0 0 980 300" role="img" aria-label="Comparison of two partitioning schemes: partition by trip date with city as a sort key gives 365 large partitions a year; partitioning by trip date and city gives 109,500 partitions with a heavily skewed size distribution.">
+        <text class="t-acc t-lg" x="20" y="22">A · partition by trip_date, sort by city</text>
+        <text class="t-ink t-lg" x="530" y="22">B · partition by trip_date + city</text>
+        <line class="ln-dash" x1="495" y1="8" x2="495" y2="292"></line>
+
+        <!-- A: three day partitions -->
+        <g>
+          <rect class="bx-acc" x="20" y="44" width="140" height="150"></rect>
+          <rect class="bx-acc" x="176" y="44" width="140" height="150"></rect>
+          <rect class="bx-acc" x="332" y="44" width="140" height="150"></rect>
+          <text class="t-sm t-ink" x="90" y="62" text-anchor="middle">trip_date=09-11</text>
+          <text class="t-sm t-ink" x="246" y="62" text-anchor="middle">trip_date=09-12</text>
+          <text class="t-sm t-ink" x="402" y="62" text-anchor="middle">trip_date=09-13</text>
+          <line class="ln" x1="32" y1="88" x2="148" y2="88"></line>
+          <line class="ln" x1="32" y1="112" x2="148" y2="112"></line>
+          <line class="ln" x1="32" y1="136" x2="148" y2="136"></line>
+          <line class="ln" x1="32" y1="160" x2="148" y2="160"></line>
+          <text class="t-sm" x="36" y="84">Bengaluru…</text>
+          <text class="t-sm" x="36" y="108">Chennai…</text>
+          <text class="t-sm" x="36" y="132">Delhi…</text>
+          <text class="t-sm" x="36" y="156">Mumbai…</text>
+          <text class="t-sm" x="36" y="180">Pune…</text>
+          <line class="ln" x1="188" y1="88" x2="304" y2="88"></line>
+          <line class="ln" x1="188" y1="112" x2="304" y2="112"></line>
+          <line class="ln" x1="188" y1="136" x2="304" y2="136"></line>
+          <line class="ln" x1="188" y1="160" x2="304" y2="160"></line>
+          <line class="ln" x1="344" y1="88" x2="460" y2="88"></line>
+          <line class="ln" x1="344" y1="112" x2="460" y2="112"></line>
+          <line class="ln" x1="344" y1="136" x2="460" y2="136"></line>
+          <line class="ln" x1="344" y1="160" x2="460" y2="160"></line>
+        </g>
+        <text class="t-ink" x="20" y="222">365 partitions / year · one large file each</text>
+        <text class="t-sm" x="20" y="242">sorted by city, so a per-city read is a contiguous range</text>
+        <text class="t-sm" x="20" y="260">min/max city stats let the reader skip files entirely</text>
+        <text class="t-acc" x="20" y="284">✓ chosen</text>
+
+        <!-- B: skewed bars -->
+        <g>
+          <line class="ln" x1="530" y1="194" x2="950" y2="194"></line>
+          <rect class="bx-crit" x="532" y="66" width="26" height="128"></rect>
+          <rect class="bx2" x="566" y="146" width="26" height="48"></rect>
+          <rect class="bx2" x="600" y="158" width="26" height="36"></rect>
+          <rect class="bx2" x="634" y="166" width="26" height="28"></rect>
+          <rect class="bx2" x="668" y="172" width="26" height="22"></rect>
+          <rect class="bx2" x="702" y="176" width="26" height="18"></rect>
+          <rect class="bx2" x="736" y="180" width="26" height="14"></rect>
+          <rect class="bx2" x="770" y="182" width="26" height="12"></rect>
+          <rect class="bx2" x="804" y="184" width="26" height="10"></rect>
+          <rect class="bx2" x="838" y="186" width="26" height="8"></rect>
+          <rect class="bx2" x="872" y="187" width="26" height="7"></rect>
+          <rect class="bx2" x="906" y="188" width="26" height="6"></rect>
+          <text class="t-crit t-sm" x="545" y="58" text-anchor="middle">12%</text>
+          <text class="t-sm fl-ink3" x="740" y="212" text-anchor="middle">…one partition per city, per day…</text>
+        </g>
+        <text class="t-ink" x="530" y="242">109,500 partitions / year</text>
+        <text class="t-sm" x="530" y="262">top city ≈ 6× the median file; 100 cities produce near-empty ones</text>
+        <text class="t-crit" x="530" y="284">✗ small-file overhead + one straggler task per run</text>
+      </svg>
+    </div>
+    <figcaption><b>Figure 3.</b> The skew in the data is an argument against using city as a partition key, not for it. Sorting achieves the same read pruning without fragmenting the write.</figcaption>
+  </figure>
+
+  <div class="dec">
+    <span class="tag">Decision 3c — columnar storage</span>
+    <p>The job touches about 5 of ~30 columns. Row storage reads all 400 bytes to use 40. With Parquet plus compression, a day drops from 16 GB to roughly 3–4 GB actually read.</p>
+  </div>
+  <div class="dec">
+    <span class="tag">Decision 3d — compute <code>wait_seconds</code> once, here</span>
+    <p>A derived column computed in the query is computed every time, by every consumer, eventually differently.</p>
+  </div>
+
+  <div class="flag">
+    <span class="tag">The box you mapped around</span>
+    <p>Your mapping was <strong>Spark + Parquet</strong>. Spark answers <em>who does the work</em>; Parquet answers <em>how bytes sit on disk</em>. Neither answers what happens when a rebuild and a reader touch the same day at once — which is the situation Decision 5a creates every single night.</p>
+    <p>That third question needs a <strong>table format</strong>: Iceberg, Delta Lake or Hudi. It is the layer that turns a pile of Parquet files in an S3 prefix into a table with atomic commits.</p>
+  </div>
+
+  <figure>
+    <div class="figbox">
+      <svg viewBox="0 0 980 300" role="img" aria-label="Two rows comparing a rebuild without and with a table format. Without one, a Spark overwrite leaves a mix of old and new files and an analyst reads a half-written day. With Iceberg, the reader stays on snapshot v41 until v42 commits atomically.">
+        <defs>
+          <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+          </marker>
+        </defs>
+
+        <text class="t-ink t-lg" x="20" y="22">Rebuilding trip_date=2026-09-03 at 02:40, while an analyst queries it</text>
+
+        <!-- row A -->
+        <text class="t-crit t-sm" x="20" y="52">WITHOUT A TABLE FORMAT — Spark overwrite on an S3 prefix</text>
+        <rect class="bx2" x="20" y="62" width="150" height="58"></rect>
+        <text class="t-sm t-ink" x="95" y="86" text-anchor="middle">Spark job</text>
+        <text class="t-sm" x="95" y="104" text-anchor="middle">overwrite</text>
+        <line class="ln" x1="170" y1="91" x2="256" y2="91" marker-end="url(#ar2)"></line>
+        <text class="t-sm" x="213" y="82" text-anchor="middle">deletes,</text>
+        <text class="t-sm" x="213" y="106" text-anchor="middle">then writes</text>
+        <rect class="bx-crit" x="256" y="62" width="290" height="58"></rect>
+        <text class="t-sm t-ink" x="401" y="84" text-anchor="middle">s3://…/trip_date=2026-09-03/</text>
+        <text class="t-sm" x="401" y="104" text-anchor="middle">some old files gone · some new files not yet there</text>
+        <line class="ln" x1="640" y1="91" x2="562" y2="91" marker-end="url(#ar2)"></line>
+        <text class="t-sm" x="601" y="82" text-anchor="middle">reads</text>
+        <rect class="bx-crit" x="640" y="62" width="320" height="58"></rect>
+        <text class="t-sm t-crit" x="800" y="86" text-anchor="middle">a half-written day — rows missing,</text>
+        <text class="t-sm t-crit" x="800" y="104" text-anchor="middle">no error, plausible wrong number</text>
+
+        <!-- row B -->
+        <text class="t-ok t-sm" x="20" y="164">WITH ICEBERG — snapshot commit</text>
+        <rect class="bx2" x="20" y="174" width="150" height="94"></rect>
+        <text class="t-sm t-ink" x="95" y="206" text-anchor="middle">Spark job</text>
+        <text class="t-sm" x="95" y="224" text-anchor="middle">MERGE INTO</text>
+        <text class="t-sm" x="95" y="242" text-anchor="middle">then commit</text>
+        <line class="ln" x1="170" y1="221" x2="256" y2="221" marker-end="url(#ar2)"></line>
+        <text class="t-sm" x="213" y="212" text-anchor="middle">writes</text>
+        <text class="t-sm" x="213" y="236" text-anchor="middle">new files</text>
+        <rect class="bx" x="256" y="174" width="290" height="94"></rect>
+        <rect class="bx-ok" x="268" y="186" width="266" height="30"></rect>
+        <text class="t-sm t-ink" x="401" y="206" text-anchor="middle">snapshot v41 — complete, still current</text>
+        <rect class="bx2" x="268" y="224" width="266" height="30" stroke-dasharray="4 3"></rect>
+        <text class="t-sm" x="401" y="244" text-anchor="middle">snapshot v42 — building, not yet pointed at</text>
+        <line class="ln" x1="640" y1="221" x2="562" y2="221" marker-end="url(#ar2)"></line>
+        <text class="t-sm" x="601" y="212" text-anchor="middle">reads</text>
+        <rect class="bx-ok" x="640" y="174" width="320" height="94"></rect>
+        <text class="t-sm t-ok" x="800" y="200" text-anchor="middle">sees v41 in full until the commit,</text>
+        <text class="t-sm t-ok" x="800" y="220" text-anchor="middle">then v42 in full — never in between</text>
+        <text class="t-sm" x="800" y="246" text-anchor="middle">a dead job commits nothing at all</text>
+      </svg>
+    </div>
+    <figcaption><b>Figure 4.</b> The same three answers fall out of this: a mid-rebuild query returns a partial day; a job that dies leaves the prefix permanently broken; and a new column rewrites nothing, because the schema lives in metadata rather than in the files. Iceberg's atomic pointer swap is what a nightly restatement window actually requires.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <p><strong>Tech:</strong> Spark for the collapse (<code>MERGE INTO</code> against the Debezium change log), writing an <strong>Iceberg</strong> table in Parquet on S3, catalogued in Glue or an Iceberg REST catalog. Iceberg over Delta chiefly for partition evolution — if the date-partition choice ever proves wrong, it can be changed without rewriting three years of history.</p>
+  </div>
+</section>
+
+<!-- ============ STEP 4 ============ -->
+<section class="step">
+  <div class="stephead"><span class="stepnum">Step 4</span><h2>Serving: 300 rows a day, plus two sketches</h2></div>
+  <div class="prose">
+    <p>Rides and revenue are distributive — a slice hands back one number and you add them. Unique riders and p95 are <strong>holistic</strong>: no fixed-size per-slice summary exists, so month-to-date and year-to-date cannot be computed from daily rows at all.</p>
+  </div>
+
+  <div class="dec">
+    <span class="tag">Decision 4a — store sketches <em>alongside</em> the numbers, not instead of them</span>
+    <p>The exact distinct count and exact p95 are correct and free at day grain, so single-day views are served from those. The HLL and t-digest exist only to make MTD/YTD possible. Exact where exactness is free; estimated only where it is the price of the question.</p>
+  </div>
+
+  <figure>
+    <div class="figbox">
+      <svg viewBox="0 0 900 180" role="img" aria-label="365 daily 12-kilobyte sketches folded with elementwise max into a single 12-kilobyte sketch, which yields a year-to-date distinct rider estimate.">
+        <defs>
+          <marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+          </marker>
+        </defs>
+        <rect class="bx2" x="20" y="24" width="130" height="24"></rect>
+        <text class="t-sm" x="85" y="41" text-anchor="middle">Jan 01 · 12 KB</text>
+        <rect class="bx2" x="20" y="56" width="130" height="24"></rect>
+        <text class="t-sm" x="85" y="73" text-anchor="middle">Jan 02 · 12 KB</text>
+        <rect class="bx2" x="20" y="88" width="130" height="24"></rect>
+        <text class="t-sm fl-ink3" x="85" y="105" text-anchor="middle">…109,500 rows…</text>
+        <rect class="bx2" x="20" y="120" width="130" height="24"></rect>
+        <text class="t-sm" x="85" y="137" text-anchor="middle">Dec 31 · 12 KB</text>
+
+        <path class="ln" d="M 150 36 L 210 36 L 210 80"></path>
+        <path class="ln" d="M 150 68 L 210 68"></path>
+        <path class="ln" d="M 150 100 L 210 100"></path>
+        <path class="ln" d="M 150 132 L 210 132 L 210 80"></path>
+        <line class="ln" x1="210" y1="80" x2="278" y2="80" marker-end="url(#ar3)"></line>
+        <rect class="bx-acc" x="278" y="62" width="130" height="36"></rect>
+        <text class="t-sm t-ink" x="343" y="85" text-anchor="middle">elementwise max</text>
+        <line class="ln" x1="408" y1="80" x2="476" y2="80" marker-end="url(#ar3)"></line>
+        <rect class="bx" x="476" y="62" width="150" height="36"></rect>
+        <text class="t-sm t-ink" x="551" y="85" text-anchor="middle">one 12 KB sketch</text>
+        <line class="ln" x1="626" y1="80" x2="694" y2="80" marker-end="url(#ar3)"></line>
+        <rect class="bx" x="694" y="62" width="186" height="36"></rect>
+        <text class="t-sm t-ink" x="787" y="79" text-anchor="middle">61,204,388 riders</text>
+        <text class="t-sm" x="787" y="94" text-anchor="middle">± ~0.8%</text>
+        <text class="t-sm fl-ink3" x="20" y="168">merge(sketch(A), sketch(B)) == sketch(A ∪ B) — the merge is exact; only the final count is estimated</text>
+      </svg>
+    </div>
+    <figcaption><b>Figure 5.</b> Any grouping — a day, a month, a region, weekends in Q3 — is the same fold over a different row selection, because <code>max</code> is order- and grouping-agnostic. The exact alternative is ~234 GB of rider IDs deduplicated per question.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <p><strong>Tech, with a real trap:</strong> Spark's <code>approx_count_distinct</code> and <code>percentile_approx</code> return <em>numbers</em>, not storable sketches — useless for this. Use Spark 3.5's <code>hll_sketch_agg</code> / <code>hll_union_agg</code> (Apache DataSketches under the hood, serialized to bytes) and a DataSketches KLL or t-digest aggregate for the quantile. If Trino is the query engine, verify that the sketch binary it reads is the same family it was written with — Trino's native <code>HyperLogLog</code> and <code>tdigest</code> types are its own formats, and cross-engine compatibility here must be tested, never assumed. Pick one sketch library and make every engine agree on it, because Decision 4a's third price is that the format is frozen for all history.</p>
+  </div>
+</section>
+
+<!-- ============ STEP 5 ============ -->
+<section class="step">
+  <div class="stephead"><span class="stepnum">Step 5</span><h2>Restatement, and what the SLA actually promises</h2></div>
+
+  <figure>
+    <div class="figbox">
+      <svg viewBox="0 0 980 230" role="img" aria-label="A timeline of the last twenty days. The most recent fourteen are rebuilt every night and marked provisional; days older than fourteen are final. A correction arriving tonight lands inside the provisional window.">
+        <defs>
+          <marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"></path>
+          </marker>
+        </defs>
+        <rect class="bx2" x="40" y="92" width="252" height="40"></rect>
+        <rect class="bx-acc" x="296" y="92" width="608" height="40"></rect>
+        <g class="ln">
+          <line x1="82" y1="92" x2="82" y2="132"></line>
+          <line x1="124" y1="92" x2="124" y2="132"></line>
+          <line x1="166" y1="92" x2="166" y2="132"></line>
+          <line x1="208" y1="92" x2="208" y2="132"></line>
+          <line x1="250" y1="92" x2="250" y2="132"></line>
+          <line x1="338" y1="92" x2="338" y2="132"></line>
+          <line x1="380" y1="92" x2="380" y2="132"></line>
+          <line x1="422" y1="92" x2="422" y2="132"></line>
+          <line x1="464" y1="92" x2="464" y2="132"></line>
+          <line x1="506" y1="92" x2="506" y2="132"></line>
+          <line x1="548" y1="92" x2="548" y2="132"></line>
+          <line x1="590" y1="92" x2="590" y2="132"></line>
+          <line x1="632" y1="92" x2="632" y2="132"></line>
+          <line x1="674" y1="92" x2="674" y2="132"></line>
+          <line x1="716" y1="92" x2="716" y2="132"></line>
+          <line x1="758" y1="92" x2="758" y2="132"></line>
+          <line x1="800" y1="92" x2="800" y2="132"></line>
+          <line x1="842" y1="92" x2="842" y2="132"></line>
+        </g>
+        <path class="ln-acc" d="M 296 78 L 296 66 L 904 66 L 904 78"></path>
+        <text class="t-acc" x="600" y="58" text-anchor="middle">rebuilt tonight — the trailing 14 days</text>
+        <text class="t-sm" x="166" y="58" text-anchor="middle">never re-read</text>
+        <line class="ln-acc" x1="548" y1="18" x2="548" y2="86" marker-end="url(#ar4)"></line>
+        <text class="t-acc t-sm" x="548" y="12" text-anchor="middle">a refund arrives tonight for a trip on D−11</text>
+        <text class="t-sm" x="40" y="150">D−20</text>
+        <text class="t-sm t-acc" x="296" y="150">D−14</text>
+        <text class="t-sm" x="904" y="150" text-anchor="end">D−1</text>
+        <text class="t-ink" x="166" y="178" text-anchor="middle">final</text>
+        <text class="t-acc t-ink" x="600" y="178" text-anchor="middle">provisional — still changing</text>
+        <line class="ln" x1="40" y1="196" x2="940" y2="196"></line>
+        <text class="t-sm" x="40" y="216">“Yesterday's numbers by 08:00” promises a first draft. A day is final only after the correction window closes.</text>
+      </svg>
+    </div>
+    <figcaption><b>Figure 6.</b> The 00:30 cut-off is a completeness-of-first-draft boundary, not a correctness one. Leaving this implicit is how someone screenshots a revenue number in April that no longer matches in May.</figcaption>
+  </figure>
+
+  <div class="dec">
+    <span class="tag">Decision 5a — rebuild the trailing 14 days every night</span>
+    <p>Not just yesterday. Affordable precisely because Step 3 made one day cheap: ~50 GB columnar instead of 17.5 TB.</p>
+  </div>
+  <div class="dec">
+    <span class="tag">Decision 5b — publish <code>as_of</code> and a <code>provisional</code> flag on every serving row</span>
+    <p>Days inside the correction window are labelled on the dashboard. This converts a silent correctness bug into a visible, explained property.</p>
+  </div>
+  <div class="dec">
+    <span class="tag">Decision 5c — rewriting a day is an atomic commit</span>
+    <p>Never an append, never an update in place. This is what makes a retry safe, and it is the requirement that forced the table format in Step 3.</p>
+  </div>
+</section>
+
+<!-- ============ STEP 6 ============ -->
+<section class="step">
+  <div class="stephead"><span class="stepnum">Step 6</span><h2>Orchestration</h2></div>
+
+  <div class="dec">
+    <span class="tag">Decision 6a — trigger on data availability, not on the clock</span>
+    <p>A watermark — “all changes with commit time ≤ yesterday 23:59:59 have landed” — starts the run, with a deadline alarm as fallback. A 01:00 cron silently computes an incomplete day the first night the stream lags.</p>
+  </div>
+  <div class="dec">
+    <span class="tag">Decision 6b — every step idempotent, keyed by logical date</span>
+    <p>Re-running a step must produce the same result, never doubled rows. This is the thing that must not happen on retry.</p>
+  </div>
+  <div class="dec">
+    <span class="tag">Decision 6c — backfill is the same DAG with a different date range</span>
+    <p>No separate backfill code path. A second path is a second set of bugs and a guaranteed divergence between what history says and what today says.</p>
+  </div>
+  <div class="dec">
+    <span class="tag">Decision 6d — quality gates before publish</span>
+    <p>Row count within tolerance of the trailing average, no city missing, revenue non-null. Then publish atomically, so nobody ever queries a half-built day.</p>
+  </div>
+
+  <div class="prose">
+    <p><strong>Tech:</strong> Airflow — a sensor on the landing watermark, then land → model (yesterday plus the 14-day window) → aggregate → validate → publish, every task keyed by <code>logical_date</code> so a backfill is <code>airflow dags backfill</code> over the same code.</p>
+  </div>
+</section>
+
+<!-- ============ MAPPING ============ -->
+<section class="step">
+  <div class="stephead"><span class="stepnum">Layer 2</span><h2>The full tech mapping</h2></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Box</th><th>What the role demands</th><th>Choice</th><th>Why this one</th><th>What it costs</th></tr></thead>
+      <tbody>
+        <tr><td>Source</td><td>unchanged, low impact</td><td class="mono">PostgreSQL</td><td>out of scope by definition</td><td>must enable logical replication</td></tr>
+        <tr><td>Capture</td><td>every mutation, no query load</td><td class="mono">Debezium</td><td>reads the WAL, catches back-office updates</td><td>a connector to operate, schema-change handling</td></tr>
+        <tr><td>Transport</td><td>durable, replayable, ordered</td><td class="mono">Kafka</td><td>replay lets you rebuild landing from scratch</td><td>a cluster; retention must cover your replay window</td></tr>
+        <tr><td>Landing</td><td>append-only, cheap, immutable</td><td class="mono">S3 + Connect S3 sink</td><td>object immutability matches the log semantics</td><td>small-file compaction is mandatory, not optional</td></tr>
+        <tr><td>Modeled</td><td>columnar, partitioned, rewritable</td><td class="mono">Spark + Iceberg + Parquet</td><td>MERGE INTO for late corrections; atomic commits; partition evolution</td><td>catalog to run; snapshot expiry and compaction jobs</td></tr>
+        <tr><td>Catalog</td><td>one table identity for all engines</td><td class="mono">Glue / Iceberg REST</td><td>Spark writes and Trino reads the same table</td><td>a shared dependency both engines need up</td></tr>
+        <tr><td>Sketches</td><td>storable, mergeable, cross-engine</td><td class="mono">Apache DataSketches</td><td>engine-native approx functions return numbers, not sketches</td><td>format frozen forever; verify engine compatibility</td></tr>
+        <tr><td>Serving</td><td>tiny, fast, exact + mergeable columns</td><td class="mono">Iceberg table</td><td>~5 MB/day — small enough to also mirror to Postgres for sub-100 ms dashboard reads</td><td>two copies to keep consistent if you mirror</td></tr>
+        <tr><td>Query</td><td>ad-hoc over the lake</td><td class="mono">Trino</td><td>mature Iceberg support, separates from the write cluster</td><td>another cluster; Impala is the alternative but is a poorer fit on S3 + Iceberg</td></tr>
+        <tr><td>Orchestration</td><td>data-triggered, idempotent, backfillable</td><td class="mono">Airflow</td><td>sensors, logical-date keying, first-class backfill</td><td>scheduler to run; DAG discipline is on you</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- ============ TRACE ============ -->
+<section class="step">
+  <div class="stephead"><span class="stepnum">Trace</span><h2>Ten records, end to end</h2></div>
+  <div class="prose">
+    <p>Ten trips across two cities and two days, with one fare correction arriving late. Small enough to check by hand, and shaped so every decision above shows up as a concrete number.</p>
+  </div>
+
+  <div class="tstep"><span class="n">01</span><h3>In the operational store</h3><span class="chip">PostgreSQL · trips</span></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>trip</th><th>city</th><th>trip_date</th><th>rider</th><th class="mono">fare</th><th class="mono">requested_at</th><th class="mono">arrived_at</th><th>status</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">T1</td><td>Mumbai</td><td class="mono">09-11</td><td class="mono">R-101</td><td class="mono">240.00</td><td class="mono">08:00:00</td><td class="mono">08:04:00</td><td>COMPLETED</td></tr>
+        <tr><td class="mono">T2</td><td>Mumbai</td><td class="mono">09-11</td><td class="mono">R-102</td><td class="mono">180.00</td><td class="mono">08:10:00</td><td class="mono">08:12:30</td><td>COMPLETED</td></tr>
+        <tr class="pick"><td class="mono">T3</td><td>Mumbai</td><td class="mono">09-11</td><td class="mono">R-101</td><td class="mono">320.00</td><td class="mono">19:00:00</td><td class="mono">19:07:20</td><td>COMPLETED</td></tr>
+        <tr><td class="mono">T4</td><td>Pune</td><td class="mono">09-11</td><td class="mono">R-103</td><td class="mono">150.00</td><td class="mono">09:00:00</td><td class="mono">09:03:00</td><td>COMPLETED</td></tr>
+        <tr><td class="mono">T5</td><td>Pune</td><td class="mono">09-11</td><td class="mono">R-101</td><td class="mono">200.00</td><td class="mono">21:00:00</td><td class="mono">21:01:40</td><td>COMPLETED</td></tr>
+        <tr><td class="mono">T6</td><td>Mumbai</td><td class="mono">09-11</td><td class="mono">R-104</td><td class="mono">410.00</td><td class="mono">23:52:00</td><td class="mono">23:58:10</td><td>COMPLETED</td></tr>
+        <tr><td class="mono">T7</td><td>Mumbai</td><td class="mono">09-11</td><td class="mono">R-105</td><td class="mono">90.00</td><td class="mono">12:00:00</td><td class="mono">—</td><td>CANCELLED</td></tr>
+        <tr><td class="mono">T8</td><td>Pune</td><td class="mono">09-12</td><td class="mono">R-103</td><td class="mono">260.00</td><td class="mono">07:30:00</td><td class="mono">07:33:20</td><td>COMPLETED</td></tr>
+        <tr><td class="mono">T9</td><td>Mumbai</td><td class="mono">09-12</td><td class="mono">R-102</td><td class="mono">300.00</td><td class="mono">08:05:00</td><td class="mono">08:14:00</td><td>COMPLETED</td></tr>
+        <tr><td class="mono">T10</td><td>Mumbai</td><td class="mono">09-12</td><td class="mono">R-101</td><td class="mono">210.00</td><td class="mono">18:00:00</td><td class="mono">18:02:30</td><td>COMPLETED</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Four things are deliberately planted here. <b>R-101 rides in both cities</b> on 09-11, so the per-city distinct counts overlap. <b>R-101 also rides twice in Mumbai</b> that day, so rides and riders diverge. <b>T6 completes at 23:58</b> and its row does not land until after midnight. <b>T7 is cancelled</b> and must not count as a ride, though it is still a row. On 09-13, T3 will be refunded.</p>
+
+  <div class="tstep"><span class="n">02</span><h3>Capture — every mutation, off the write-ahead log</h3><span class="chip">Debezium → Kafka</span></div>
+  <pre><span class="c">// T3 inserted, 2026-09-11 19:07 — one envelope per change, in commit order</span>
+{
+  "op": "c",                              <span class="c">// c = create, u = update, d = delete</span>
+  "ts_ms": 1789246040000,
+  "source": { "table": "trips", "lsn": 27553001 },
+  "before": null,
+  "after": {
+    "trip_id": "T3", "city": "Mumbai", "rider_id": "R-101",
+    "status": "COMPLETED", "fare": 320.00,
+    "requested_at": "2026-09-11T19:00:00Z",
+    "arrived_at":   "2026-09-11T19:07:20Z"
+  }
+}</pre>
+  <p class="note">The application never emitted this. Debezium read it from the database's own log — which is precisely why the refund two days from now will be captured too, even though it is issued by a back-office tool that bypasses the app entirely.</p>
+
+  <div class="tstep"><span class="n">03</span><h3>Landing — append-only, partitioned by when it arrived</h3><span class="chip">Kafka Connect S3 sink · S3</span></div>
+  <pre>s3://lake-raw/trips/
+  ingest_date=2026-09-11/  part-0001.avro   <span class="c">← T1 T2 T3 T4 T5 T7  (6 change events)</span>
+  ingest_date=2026-09-12/  part-0002.avro   <span class="hi">← T6</span><span class="c">  — trip_date is 09-11, but it landed 00:12</span>
+                           part-0003.avro   <span class="c">← T8 T9 T10</span>
+  ingest_date=2026-09-13/  part-0004.avro   <span class="hi">← T3 update</span><span class="c">  — op:"u", fare 320.00 → 120.00</span></pre>
+  <p class="note"><b>This is Decision 2b doing visible work.</b> T6 sits under <code>ingest_date=2026-09-12</code> even though it is a 09-11 trip, because arrival time is the only thing known at write time. Nothing here is ever updated: the refund is a <em>new</em> object, not an edit to <code>part-0001</code>. Four small files from ten records is also the small-file problem in miniature — at real volume a compaction job rewrites each closed day.</p>
+
+  <div class="tstep"><span class="n">04</span><h3>Modeled — collapse the change log into trips</h3><span class="chip">Spark · Iceberg · Parquet</span></div>
+  <pre>MERGE INTO trips_modeled t
+USING (<span class="c">latest change per trip_id from the landing log</span>) c
+   ON t.trip_id = c.trip_id
+ WHEN MATCHED AND c.op = 'd' THEN DELETE
+ WHEN MATCHED              THEN UPDATE SET *
+ WHEN NOT MATCHED          THEN INSERT *</pre>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>partition</th><th>trip</th><th>city <span style="font-weight:400;text-transform:none;letter-spacing:0">(sort key)</span></th><th class="mono">fare</th><th class="mono">wait_seconds</th><th>status</th></tr></thead>
+      <tbody>
+        <tr><td class="mono" rowspan="7">trip_date=2026-09-11</td><td class="mono">T1</td><td>Mumbai</td><td class="mono">240.00</td><td class="mono">240</td><td>COMPLETED</td></tr>
+        <tr><td class="mono">T2</td><td>Mumbai</td><td class="mono">180.00</td><td class="mono">150</td><td>COMPLETED</td></tr>
+        <tr><td class="mono">T3</td><td>Mumbai</td><td class="mono">320.00</td><td class="mono">440</td><td>COMPLETED</td></tr>
+        <tr><td class="mono">T6</td><td>Mumbai</td><td class="mono">410.00</td><td class="mono">370</td><td>COMPLETED</td></tr>
+        <tr><td class="mono">T7</td><td>Mumbai</td><td class="mono">90.00</td><td class="mono">—</td><td>CANCELLED</td></tr>
+        <tr><td class="mono">T4</td><td>Pune</td><td class="mono">150.00</td><td class="mono">180</td><td>COMPLETED</td></tr>
+        <tr><td class="mono">T5</td><td>Pune</td><td class="mono">200.00</td><td class="mono">100</td><td>COMPLETED</td></tr>
+        <tr><td class="mono" rowspan="3">trip_date=2026-09-12</td><td class="mono">T9</td><td>Mumbai</td><td class="mono">300.00</td><td class="mono">540</td><td>COMPLETED</td></tr>
+        <tr><td class="mono">T10</td><td>Mumbai</td><td class="mono">210.00</td><td class="mono">150</td><td>COMPLETED</td></tr>
+        <tr><td class="mono">T8</td><td>Pune</td><td class="mono">260.00</td><td class="mono">200</td><td>COMPLETED</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Three things changed shape here. Rows are now grouped by <b>trip_date</b>, not arrival — T6 has moved back into the 09-11 partition where it belongs. Within each partition rows are <b>sorted by city</b>, so a Mumbai read is one contiguous range. And <code>wait_seconds</code> is <b>computed once</b> (Decision 3d) rather than re-derived by every consumer. This is snapshot <b>v41</b>.</p>
+
+  <div class="tstep"><span class="n">05</span><h3>Serving — one row per city per day</h3><span class="chip">Iceberg table · ~5 MB/day at real volume</span></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>date</th><th>city</th><th class="mono">rides</th><th class="mono">revenue</th><th class="mono">riders_exact</th><th class="mono">p95_exact</th><th>riders_hll</th><th>wait_tdigest</th><th>provisional</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">09-11</td><td>Mumbai</td><td class="mono">4</td><td class="mono">1,150.00</td><td class="mono">3</td><td class="mono">440</td><td class="mono">0x8f2a…</td><td class="mono">0x41cd…</td><td class="mono">true</td></tr>
+        <tr><td class="mono">09-11</td><td>Pune</td><td class="mono">2</td><td class="mono">350.00</td><td class="mono">2</td><td class="mono">180</td><td class="mono">0x1b70…</td><td class="mono">0x9e04…</td><td class="mono">true</td></tr>
+        <tr><td class="mono">09-12</td><td>Mumbai</td><td class="mono">2</td><td class="mono">510.00</td><td class="mono">2</td><td class="mono">540</td><td class="mono">0xc3d9…</td><td class="mono">0x77ab…</td><td class="mono">true</td></tr>
+        <tr><td class="mono">09-12</td><td>Pune</td><td class="mono">1</td><td class="mono">260.00</td><td class="mono">1</td><td class="mono">200</td><td class="mono">0x2e51…</td><td class="mono">0xb682…</td><td class="mono">true</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Mumbai on 09-11: <b>4 rides but only 3 riders</b> (R-101 rode twice), and T7 is absent because cancelled trips are not rides. The two sketch columns are bytes, not numbers — they exist purely so the next step is possible. <b>A caveat worth naming:</b> at n=4 the p95 is simply the maximum. Percentiles on tiny slices carry almost no information; the column earns its place at 40M rows a day, not at four.</p>
+
+  <div class="tstep"><span class="n">06</span><h3>Query — and where the naive rollup lies</h3><span class="chip">Trino</span></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>question</th><th>how it is answered</th><th class="mono">naive rollup</th><th class="mono">correct</th></tr></thead>
+      <tbody>
+        <tr><td>Mumbai, 09-11, rides</td><td>read one row</td><td class="mono">4</td><td class="mono">4</td></tr>
+        <tr><td>Company-wide 09-11, rides</td><td><code>sum</code> — distributive</td><td class="mono">6</td><td class="mono">6</td></tr>
+        <tr><td>Company-wide 09-11, revenue</td><td><code>sum</code> — distributive</td><td class="mono">1,500.00</td><td class="mono">1,500.00</td></tr>
+        <tr><td><b>Company-wide 09-11, unique riders</b></td><td><code>merge</code> the two HLLs</td><td class="del">5</td><td class="new">4</td></tr>
+        <tr><td><b>Company-wide 09-11, p95 wait</b></td><td><code>merge</code> the two t-digests</td><td class="del">353</td><td class="new">440</td></tr>
+        <tr><td><b>Two-day total, unique riders</b></td><td><code>merge</code> all four HLLs</td><td class="del">8</td><td class="new">4</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">You can check every one of these by hand. <b>Unique riders on 09-11:</b> Mumbai has {R-101, R-102, R-104} and Pune has {R-103, R-101} — adding gives 5, but R-101 is one person, so the truth is 4. <b>p95:</b> the six wait times are 100, 150, 180, 240, 370, 440; the true p95 is 440, while a count-weighted average of the two city p95s gives 353. <b>Across both days</b> the four daily counts sum to 8, against four distinct riders in total. The sketches get all three right because they merge the underlying state rather than the answers.</p>
+
+  <div class="tstep"><span class="n">07</span><h3>Two days later, the refund arrives</h3><span class="chip">Airflow · Spark · Iceberg snapshots</span></div>
+  <pre>2026-09-13 02:00  <span class="c">Debezium emits</span>  { "op": "u", "before": { "T3", fare 320.00 },
+                                    "after":  { "T3", <span class="hi">fare 120.00</span> } }
+2026-09-13 02:14  <span class="c">Airflow watermark satisfied → DAG starts</span>
+                  <span class="c">rebuild window = 08-30 … 09-12  (trailing 14 days)</span>
+                  <span class="c">09-11 is inside the window → MERGE INTO rewrites that partition</span>
+                  <span class="c">Iceberg commits</span> <span class="hi">snapshot v42</span> <span class="c">— atomically, pointer swap</span>
+2026-09-13 02:19  <span class="c">serving table republished</span></pre>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>date</th><th>city</th><th class="mono">rides</th><th class="mono">revenue (v41)</th><th class="mono">revenue (v42)</th><th class="mono">riders</th><th class="mono">as_of</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">09-11</td><td>Mumbai</td><td class="mono">4</td><td class="del">1,150.00</td><td class="new">950.00</td><td class="mono">3</td><td class="mono">2026-09-13</td></tr>
+        <tr><td class="mono">09-11</td><td>Pune</td><td class="mono">2</td><td class="mono">350.00</td><td class="mono">350.00</td><td class="mono">2</td><td class="mono">2026-09-13</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Rides did not move — a refund is not an un-ride. Revenue did, two days after the day was first reported, which is exactly what <b>provisional</b> was warning about. An analyst querying at 02:16 that morning saw the complete v41 and then the complete v42; never a mixture, and never a partially rewritten partition. Had the job died at 02:16, v42 would simply not exist and v41 would still be current.</p>
+
+  <figure>
+    <div class="figbox">
+      <svg viewBox="0 0 1100 310" role="img" aria-label="Trip T3 traced across five layers on first pass, then the same record traced again two days later when a refund rewrites it into a new Iceberg snapshot.">
+        <defs>
+          <marker id="ar5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+          </marker>
+          <marker id="ar5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"></path>
+          </marker>
+        </defs>
+
+        <text class="t-ink t-lg" x="4" y="20">One record, T3 — first pass, 2026-09-11</text>
+        <g>
+          <rect class="bx2" x="4" y="34" width="184" height="92"></rect>
+          <text class="t-sm t-ink" x="16" y="52">PostgreSQL</text>
+          <text class="t-sm" x="16" y="72">trip_id T3</text>
+          <text class="t-sm" x="16" y="88">fare 320.00</text>
+          <text class="t-sm" x="16" y="104">status COMPLETED</text>
+          <text class="t-sm fl-ink3" x="16" y="120">mutable</text>
+
+          <rect class="bx" x="232" y="34" width="184" height="92"></rect>
+          <text class="t-sm t-ink" x="244" y="52">Debezium</text>
+          <text class="t-sm" x="244" y="72">op "c"</text>
+          <text class="t-sm" x="244" y="88">after { fare 320 }</text>
+          <text class="t-sm" x="244" y="104">lsn 27553001</text>
+          <text class="t-sm fl-ink3" x="244" y="120">immutable event</text>
+
+          <rect class="bx" x="460" y="34" width="184" height="92"></rect>
+          <text class="t-sm t-ink" x="472" y="52">S3 landing</text>
+          <text class="t-sm" x="472" y="72">ingest_date=09-11</text>
+          <text class="t-sm" x="472" y="88">part-0001.avro</text>
+          <text class="t-sm fl-ink3" x="472" y="112">append-only</text>
+
+          <rect class="bx" x="688" y="34" width="184" height="92"></rect>
+          <text class="t-sm t-ink" x="700" y="52">Iceberg modeled</text>
+          <text class="t-sm" x="700" y="72">trip_date=09-11</text>
+          <text class="t-sm" x="700" y="88">city Mumbai</text>
+          <text class="t-sm" x="700" y="104">wait_seconds 440</text>
+          <text class="t-sm t-acc" x="700" y="120">snapshot v41</text>
+
+          <rect class="bx" x="916" y="34" width="180" height="92"></rect>
+          <text class="t-sm t-ink" x="928" y="52">Serving</text>
+          <text class="t-sm" x="928" y="72">(09-11, Mumbai)</text>
+          <text class="t-sm" x="928" y="88">rides +1</text>
+          <text class="t-sm" x="928" y="104">revenue +320.00</text>
+          <text class="t-sm" x="928" y="120">R-101 → HLL</text>
+
+          <line class="ln" x1="188" y1="80" x2="226" y2="80" marker-end="url(#ar5)"></line>
+          <line class="ln" x1="416" y1="80" x2="454" y2="80" marker-end="url(#ar5)"></line>
+          <line class="ln" x1="644" y1="80" x2="682" y2="80" marker-end="url(#ar5)"></line>
+          <line class="ln" x1="872" y1="80" x2="910" y2="80" marker-end="url(#ar5)"></line>
+        </g>
+
+        <line class="ln-dash" x1="4" y1="150" x2="1096" y2="150"></line>
+
+        <text class="t-acc t-lg" x="4" y="180">The same record, 2026-09-13 — a refund is issued</text>
+        <g>
+          <rect class="bx2" x="4" y="194" width="184" height="92"></rect>
+          <text class="t-sm t-ink" x="16" y="212">PostgreSQL</text>
+          <text class="t-sm" x="16" y="232">UPDATE trips</text>
+          <text class="t-sm t-acc" x="16" y="248">fare → 120.00</text>
+          <text class="t-sm fl-ink3" x="16" y="268">back-office tool,</text>
+          <text class="t-sm fl-ink3" x="16" y="282">not the app</text>
+
+          <rect class="bx-acc" x="232" y="194" width="184" height="92"></rect>
+          <text class="t-sm t-ink" x="244" y="212">Debezium</text>
+          <text class="t-sm" x="244" y="232">op "u"</text>
+          <text class="t-sm" x="244" y="248">before { 320 }</text>
+          <text class="t-sm" x="244" y="264">after  { 120 }</text>
+          <text class="t-sm fl-ink3" x="244" y="282">an event log misses this</text>
+
+          <rect class="bx" x="460" y="194" width="184" height="92"></rect>
+          <text class="t-sm t-ink" x="472" y="212">S3 landing</text>
+          <text class="t-sm t-acc" x="472" y="232">ingest_date=09-13</text>
+          <text class="t-sm" x="472" y="248">part-0004.avro</text>
+          <text class="t-sm fl-ink3" x="472" y="270">part-0001 untouched —</text>
+          <text class="t-sm fl-ink3" x="472" y="284">history survives</text>
+
+          <rect class="bx-acc" x="688" y="194" width="184" height="92"></rect>
+          <text class="t-sm t-ink" x="700" y="212">Iceberg modeled</text>
+          <text class="t-sm" x="700" y="232">09-11 inside the</text>
+          <text class="t-sm" x="700" y="248">14-day window</text>
+          <text class="t-sm" x="700" y="264">partition rewritten</text>
+          <text class="t-sm t-acc" x="700" y="282">snapshot v42</text>
+
+          <rect class="bx" x="916" y="194" width="180" height="92"></rect>
+          <text class="t-sm t-ink" x="928" y="212">Serving</text>
+          <text class="t-sm" x="928" y="232">rides 4 (unchanged)</text>
+          <text class="t-sm t-acc" x="928" y="248">revenue 950.00</text>
+          <text class="t-sm" x="928" y="264">as_of 2026-09-13</text>
+          <text class="t-sm" x="928" y="282">provisional true</text>
+
+          <line class="ln-acc" x1="188" y1="240" x2="226" y2="240" marker-end="url(#ar5a)"></line>
+          <line class="ln-acc" x1="416" y1="240" x2="454" y2="240" marker-end="url(#ar5a)"></line>
+          <line class="ln-acc" x1="644" y1="240" x2="682" y2="240" marker-end="url(#ar5a)"></line>
+          <line class="ln-acc" x1="872" y1="240" x2="910" y2="240" marker-end="url(#ar5a)"></line>
+        </g>
+      </svg>
+    </div>
+    <figcaption><b>Figure 7.</b> The correction takes the identical path as the original insert — no special case, no separate repair job. That is what Decision 6c buys: the nightly run and the restatement are the same code, so a two-day-late refund is simply another Tuesday.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ CLOSER ============ -->
+<section class="step closer">
+  <div class="stephead"><span class="stepnum">Result</span><h2>Where the seven hours went</h2></div>
+  <div class="prose">
+    <p>The nightly run now reads fourteen recent day-partitions in columnar form — roughly <strong>50 GB, not 17.5 TB</strong>. Minutes inside a 7.5-hour window. More importantly, cost is now proportional to <strong>days rebuilt</strong>, which is constant, rather than <strong>history retained</strong>, which grows forever.</p>
+    <h3>One honest caveat</h3>
+    <p>16 GB a day is not big data. Once partitioning and columnar storage are in place, a single machine can run this. What justifies distributed tooling here is three-year reprocessing, concurrent analyst queries, and headroom for growth — <em>not</em> the nightly volume. Reaching for a cluster before fixing the data layout would have bought a 10× speedup on a problem that had a 1000× fix sitting in the partition key.</p>
+  </div>
+</section>
+
+</div>

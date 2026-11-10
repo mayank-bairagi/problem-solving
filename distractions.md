@@ -1,0 +1,3 @@
+- 2026-09-16 11:31 — Should I look at LinkedIn and check how many employees are in Maropost.
+- 2026-09-16 12:24 — Spent 30 minutes investigating interviewer on LinkedIn. Also spent time reviewing company (Maropost profile).
+- 2026-09-16 22:43 — Spent half an hour on LinkedIn on an ad hoc basis without any purpose.
