@@ -10,6 +10,7 @@ Work is organized into buckets, one directory each:
 - `data-engineering/` — big data concepts via scenarios; reference architecture first (tech-agnostic), tech mapping (Spark/Trino/Impala/Airflow/...) second
 - `scala/` — Scala language concepts and idioms (interview refreshers, one file per topic/session)
 - `sicp/` — SICP concepts step by step (Ch 1–2, 3.5, 4), exercises in Scala 2.12
+- `books/` — concept books: theory with diagrams around one simple use case, mapped to Kleppmann, compiled to Kindle later (rules in `../CLAUDE.md`)
 
 More buckets get added as we go (logic puzzles, probability/estimation, argument analysis).
 

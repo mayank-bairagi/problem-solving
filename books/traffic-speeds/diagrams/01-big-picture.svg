@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 560" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#222"/>
+    </marker>
+  </defs>
+  <rect width="1040" height="560" fill="#fff"/>
+  <g fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)">
+    <line x1="150" y1="115" x2="206" y2="115"/>
+    <line x1="360" y1="115" x2="426" y2="115"/>
+    <line x1="600" y1="115" x2="666" y2="115"/>
+    <line x1="820" y1="115" x2="886" y2="115"/>
+    <line x1="285" y1="150" x2="285" y2="276"/>
+    <line x1="360" y1="315" x2="426" y2="315"/>
+    <line x1="600" y1="315" x2="666" y2="315"/>
+    <line x1="745" y1="280" x2="745" y2="154"/>
+    <line x1="285" y1="350" x2="426" y2="462"/>
+    <line x1="745" y1="350" x2="604" y2="462"/>
+    <line x1="600" y1="485" x2="886" y2="485"/>
+  </g>
+  <g stroke="#222" stroke-width="2">
+    <rect x="20" y="80" width="130" height="70" rx="8" fill="#fff"/>
+    <rect x="210" y="80" width="150" height="70" rx="8" fill="#e6e6e6"/>
+    <rect x="430" y="80" width="170" height="70" rx="8" fill="#fff"/>
+    <rect x="670" y="80" width="150" height="70" rx="8" fill="#fff"/>
+    <rect x="890" y="80" width="130" height="70" rx="8" fill="#fff"/>
+    <rect x="210" y="280" width="150" height="70" rx="8" fill="#e6e6e6"/>
+    <rect x="430" y="280" width="170" height="70" rx="8" fill="#fff"/>
+    <rect x="670" y="280" width="150" height="70" rx="8" fill="#fff"/>
+    <rect x="430" y="450" width="170" height="70" rx="8" fill="#fff"/>
+    <rect x="890" y="450" width="130" height="70" rx="8" fill="#fff"/>
+  </g>
+  <g text-anchor="middle" fill="#111">
+    <g font-size="18" font-weight="bold">
+      <text x="85" y="111">Phones</text>
+      <text x="285" y="111">Log</text>
+      <text x="515" y="111">Stream job</text>
+      <text x="745" y="111">Serving DB</text>
+      <text x="955" y="111">Nav app</text>
+      <text x="285" y="311">Raw pings</text>
+      <text x="515" y="311">Nightly job</text>
+      <text x="745" y="311">Typical speeds</text>
+      <text x="515" y="481">Query engine</text>
+      <text x="955" y="481">Analysts</text>
+    </g>
+    <g font-size="14" fill="#444">
+      <text x="85" y="133">GPS pings</text>
+      <text x="285" y="133">Kafka</text>
+      <text x="515" y="133">Flink</text>
+      <text x="745" y="133">DynamoDB, Postgres</text>
+      <text x="955" y="133">ETA, reroute</text>
+      <text x="285" y="333">Iceberg table</text>
+      <text x="515" y="333">Spark + Airflow</text>
+      <text x="745" y="333">Iceberg table</text>
+      <text x="515" y="503">Trino / Athena</text>
+      <text x="955" y="503">reports</text>
+    </g>
+    <g font-size="15" font-style="italic" fill="#111">
+      <text x="515" y="50">CLOCK 1: speed right now (seconds)</text>
+      <text x="515" y="250">CLOCK 2: speed normally (daily)</text>
+      <text x="880" y="405">CLOCK 3: ad-hoc questions (hours)</text>
+    </g>
+    <g font-size="13" fill="#444">
+      <text x="350" y="215">keep everything</text>
+      <text x="800" y="215">load daily</text>
+    </g>
+  </g>
+</svg>

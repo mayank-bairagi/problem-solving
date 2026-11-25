@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 420" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#222"/>
+    </marker>
+  </defs>
+  <rect width="1040" height="420" fill="#fff"/>
+  <g fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)">
+    <line x1="330" y1="180" x2="616" y2="85"/>
+    <line x1="330" y1="210" x2="616" y2="210"/>
+    <line x1="330" y1="240" x2="616" y2="335"/>
+  </g>
+  <g stroke="#222" stroke-width="2">
+    <rect x="60" y="140" width="270" height="140" rx="8" fill="#e6e6e6"/>
+    <rect x="620" y="40" width="360" height="90" rx="8" fill="#fff" stroke-dasharray="7 5"/>
+    <rect x="620" y="165" width="360" height="90" rx="8" fill="#fff" stroke-dasharray="7 5"/>
+    <rect x="620" y="290" width="360" height="90" rx="8" fill="#fff" stroke-dasharray="7 5"/>
+  </g>
+  <g text-anchor="middle" fill="#111">
+    <text x="195" y="195" font-size="20" font-weight="bold">Raw pings</text>
+    <text x="195" y="222" font-size="15">the system of record</text>
+    <text x="195" y="246" font-size="15" fill="#444">written once, never changed</text>
+    <g font-size="18" font-weight="bold">
+      <text x="800" y="78">Live speed per segment</text>
+      <text x="800" y="203">Typical speed per hour of week</text>
+      <text x="800" y="328">Analyst result tables</text>
+    </g>
+    <g font-size="14" fill="#444">
+      <text x="800" y="104">derived: average of the last minute</text>
+      <text x="800" y="229">derived: average over many weeks</text>
+      <text x="800" y="354">derived: whatever was asked</text>
+    </g>
+    <text x="470" y="100" font-size="14" font-style="italic" transform="rotate(-18 470 100)">transform</text>
+    <text x="195" y="330" font-size="15" font-style="italic">Lose this and it is gone.</text>
+    <text x="800" y="410" font-size="15" font-style="italic">Lose any of these and you rebuild it from the left.</text>
+  </g>
+</svg>
