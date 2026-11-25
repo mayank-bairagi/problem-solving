@@ -25,7 +25,7 @@ Iceberg is a specification, not a server. Engines (Spark, Flink, Trino, Athena) 
 
 ![A Parquet file: row groups, column chunks, and a footer of statistics](diagrams/11-parquet-file.svg)
 
-A file is divided into **row groups**, each a horizontal slice of rows, about 128 MB by default. Inside a row group, each column is stored separately as a **column chunk**, itself a sequence of **pages** of about 1 MB. Pages are encoded and then compressed.
+A file is divided into **row groups**, each a horizontal slice of rows, 128 MB by default in the Java writer that Spark uses. Inside a row group, each column is stored separately as a **column chunk**, itself a sequence of **pages** of about 1 MB. Pages are encoded and then compressed.
 
 The **footer**, at the end of the file, holds the schema and, for every row group and column, the minimum, maximum, null count and byte position.
 

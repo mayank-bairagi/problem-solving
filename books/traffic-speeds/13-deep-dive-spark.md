@@ -166,7 +166,7 @@ A related feature, **dynamic partition pruning**: when a large partitioned fact 
 spark.sql.adaptive.enabled=true
 spark.sql.adaptive.coalescePartitions.enabled=true
 spark.sql.adaptive.skewJoin.enabled=true
-spark.sql.adaptive.advisoryPartitionSizeInBytes=128m
+spark.sql.adaptive.advisoryPartitionSizeInBytes=128m   # default 64m
 ```
 
 **What interviewers probe**
@@ -215,7 +215,7 @@ For **aggregations**, the equivalent is two steps: aggregate by `(key, salt)`, t
 
 ![How an executor's memory is divided](diagrams/13-memory.svg)
 
-An executor's container has two parts. The **JVM heap** is `spark.executor.memory`. The **overhead**, about 10% extra by default, covers memory outside the heap: network buffers, native libraries, Python workers.
+An executor's container has two parts. The **JVM heap** is `spark.executor.memory`. The **overhead**, 10% extra by default with a minimum of 384 MB, covers memory outside the heap: network buffers, native libraries, Python workers.
 
 Inside the heap, a **unified region** of about 60% is shared between:
 

@@ -22,7 +22,7 @@ A note on versions. Airflow 3 changed several names and defaults that had been s
 - The **metadata database** (Postgres, usually) holds everything: DAGs, runs, task instances and their states, connections, variables.
 - The **scheduler** loops: which runs are due, which tasks have their dependencies met, which can be queued. It writes each decision as a state change.
 - The **executor** decides *where* a queued task runs.
-- **Workers** run the task's code and report the result.
+- **Workers** run the task's code and report the result. In Airflow 3 they do this through the API server, and task code can no longer touch the metadata database directly.
 - The **API server and web UI** show the state and accept commands.
 - The **triggerer** is a small process that waits on behalf of deferred tasks (Topic 6).
 
@@ -307,7 +307,7 @@ def test_nightly_shape():
     assert dag.get_task("publish").upstream_task_ids == {"checks"}
 ```
 
-1. **Import test** in continuous integration: every DAG file loads without error and quickly. This catches most breakages.
+1. **Import test** in continuous integration: every DAG file loads without error and quickly. This catches most breakages. `DagBag` is widely used for this, but Airflow 3 treats it as internal rather than public API, so it may move between releases. `airflow dags list-import-errors` does the same check from the command line.
 2. **Unit tests** of the business logic, which should live in ordinary functions and jobs that do not need Airflow to run.
 3. **A full run** of the DAG for one date against a test environment, with `dag.test()` or a staging installation.
 

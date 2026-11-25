@@ -7,7 +7,7 @@
 | | Postgres on RDS | DynamoDB |
 |---|---|---|
 | Model | relational: tables, joins, SQL | key-value and document: items found by key |
-| Storage engine | heap tables with B-tree indexes | partitions, each a sorted store, replicated across three zones |
+| Storage engine | heap tables with B-tree indexes | partitions, each a sorted store, replicated across several availability zones |
 | Scales writes by | a bigger primary | adding partitions, automatically |
 | Transactions | full, across any rows and tables | limited: a fixed number of items per transaction |
 | Queries | anything SQL can express | only by key, or through an index you declared |
@@ -204,7 +204,7 @@ Queries that filter on the partition column touch only the matching partitions. 
 - *Does a Multi-AZ standby serve reads?* Not in the classic single-standby deployment. Reads need read replicas.
 - *A user does not see what they just wrote.* The read went to a lagging replica. Read your own writes from the primary, for a short time after writing.
 - *What causes replica lag?* A burst of writes, a long query on the replica that conflicts with replay, or a replica smaller than the primary.
-- *How do you upgrade a major version with little downtime?* Logical replication to a new instance on the new version, then switch over. RDS offers a managed form of this as blue/green deployments.
+- *How do you upgrade a major version with little downtime?* Logical replication to a new instance on the new version, then switch over. RDS offers a managed form of this as blue/green deployments, which use logical replication for a major-version upgrade (from recent enough minor versions) and physical replication otherwise.
 - *When is one Postgres no longer enough?* When writes exceed one primary, or data exceeds one machine. Before sharding, try partitioning, archiving, moving a single hot workload elsewhere, and a bigger instance.
 
 ## Topic 6: DynamoDB's data model
@@ -241,8 +241,8 @@ There is no join and no filter on arbitrary attributes. A `FilterExpression` is 
 Other facts worth knowing:
 
 - An item is limited to 400 KB.
-- **Reads are eventually consistent by default.** Data is stored in three zones, and a default read may come from a copy that is slightly behind. A **strongly consistent read** can be requested per call, at twice the cost.
-- **Time to live:** name an attribute holding an expiry time, and items are deleted in the background some time after it passes, at no write cost. Do not rely on the exact moment.
+- **Reads are eventually consistent by default.** Data is copied to several availability zones, and a default read may come from a copy that is slightly behind. A **strongly consistent read** can be requested per call, at twice the cost.
+- **Time to live:** name an attribute holding an expiry time, and items are deleted in the background, usually within a few days after it passes, at no write cost. Do not rely on the exact moment.
 
 **What interviewers probe**
 

@@ -70,21 +70,30 @@ Deep dives may use the tool's real setting names and go further than Part I. Kee
 - Black, white and grey only, large type, about 1040 px wide, so they read on a Kindle screen.
 - At least one diagram per idea.
 
-## Fact-check status (2026-11-16)
+## Fact-check status (2026-11-25)
 
-Checked against a published source:
+Checked against a published source (official docs, or the printed table of contents):
 
-- Kleppmann section names in Ch. 3, 5 and 8: every one cited matches the printed table of contents. Scattered headings in Ch. 4, 6, 9, 10, 11 and 12 were also confirmed.
-- Airflow 3 CLI (`airflow backfill create --dag-id --from-date --to-date`; no `airflow dags backfill`), SLAs removed in 3.0, deadline alerts added in 3.1.
-- Flink 2.x takes `java.time.Duration` for windows and state TTL.
-- DynamoDB global tables: last writer wins in the default mode.
-- The book's own arithmetic (load numbers, Kafka retention size, the 63% tail figure, the Athena cost examples).
+- **Kleppmann:** every section cited from Ch. 3, 5 and 8 matches the printed table of contents. Ch. 1, 2 and 4 headings match a reader's notes that follow the book's headings, and a few in Ch. 6, 9, 10, 11 and 12 were confirmed from search results.
+- **Kafka 4.0:** KRaft only; segment 1 GiB; retention 168 h; `replica.lag.time.max.ms` 30 s; `max.poll.interval.ms` 5 min; idempotence on and `acks=all` by default; consumers `read_uncommitted` by default; KIP-848 protocol GA with `group.protocol=consumer`; auto-commit every 5 s; `exactly_once_v2`.
+- **Iceberg:** 512 MB target file size; the procedure names and arguments used; deletion vectors in format v3.
+- **Trino:** `optimize(file_size_threshold => …)` (default 100 MB; the book's 128 MB is a choice); `"t$snapshots"`; fault-tolerant execution with `retry-policy`; join distribution and reordering settings; right side is the build side; `REPLICATED`; fragment types; dynamic filtering on by default; resource group limits.
+- **Spark:** 200 shuffle partitions; 10 MB broadcast threshold; AQE on by default since 3.2; advisory partition size default 64 MB (the book sets 128 MB); `spark.memory.fraction` 0.6; overhead 10%, minimum 384 MB; `EXPLAIN FORMATTED`.
+- **Athena and Redshift:** $5 per TB scanned; per-query scan limits on workgroups; Redshift distribution styles, with `AUTO` the default.
+- **Postgres:** default isolation Read Committed; Repeatable Read is snapshot isolation; SSI; 8 KB pages; 32-bit transaction ids and wraparound; vacuum and `VACUUM FULL`; index options.
+- **RDS:** the classic standby serves no reads; blue/green deployments for Postgres (logical replication only for major upgrades).
+- **DynamoDB:** 400 KB items; unit definitions; eventual reads by default, strong reads not available on global indexes; transactions of up to 100 items at double cost; streams kept 24 h; TTL deletes are free and come within days; local indexes only at creation; global tables use last writer wins in the default mode.
+- **Airflow 3:** `airflow.sdk` imports and `Asset`; the backfill CLI; SLAs removed in 3.0, deadline alerts added in 3.1; workers report through the API server; `{{ ds }}` and the data-interval templates.
+- **Flink 2.x:** `java.time.Duration` for windows and state TTL.
+- **The book's own arithmetic** (load numbers, Kafka retention size, the 63% tail figure, the Athena cost examples).
 
-Not checked against a source, written from memory:
+Corrected after checking: DynamoDB "three zones" (docs say several), TTL timing, blue/green replication type, Spark overhead minimum, Parquet row group default attributed to the Java writer, Airflow 3 worker and `DagBag` notes, global-tables modes, deadline alerts.
 
-- Kleppmann section names in Ch. 1, 2, 7, and most of Ch. 4, 6, 9, 10, 11, 12, and all lower-level headings (the ones in sentence case, such as "Handling skew").
-- Tool defaults and prices: Kafka, Parquet, Iceberg, Spark, Trino, Athena, Redshift, Postgres, RDS, DynamoDB units and limits.
-- No snippet has been compiled or run. Sample plan outputs are illustrative.
+Still from memory:
+
+- **Kleppmann:** most section names in Ch. 6, 7, 9, 10, 11 and 12, and the title of Part III. O'Reilly refuses automated access, and the only complete tables of contents found online were unauthorised copies of the book, which were not used. Check these against a copy of the book.
+- **Smaller facts:** Athena's 10 MB per-query minimum and free DDL; result reuse and the Iceberg CTAS options; Redshift zone maps and automatic vacuum; RDS failover time and RDS Proxy; the Airflow 3 catchup default, sensors, trigger rules, `dag.test()` and the removal of SubDAGs; Parquet's 1 MB page size; Kafka share-group status.
+- **Snippets:** none has been compiled or run, and sample plan outputs are illustrative.
 
 ## Compiling to Kindle
 
